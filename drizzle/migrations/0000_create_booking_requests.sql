@@ -1,0 +1,7 @@
+CREATE TABLE public.booking_requests (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), created_at timestamptz NOT NULL DEFAULT now(), name text NOT NULL CHECK (length(name) BETWEEN 1 AND 100), email text NOT NULL CHECK (length(email) <= 255), pathway text NOT NULL CHECK (pathway IN ('individual','group','exploring')), availability text NOT NULL DEFAULT '' CHECK (length(availability) <= 500), message text NOT NULL DEFAULT '' CHECK (length(message) <= 2000));
+GRANT ALL ON public.booking_requests TO service_role;
+ALTER TABLE public.booking_requests ENABLE ROW LEVEL SECURITY;
+CREATE INDEX booking_requests_email_created ON public.booking_requests(email, created_at DESC);
+CREATE FUNCTION public.submit_booking_request(p_name text,p_email text,p_pathway text,p_availability text,p_message text) RETURNS uuid LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $$ DECLARE result uuid; BEGIN PERFORM pg_advisory_xact_lock(hashtext(lower(p_email))); IF EXISTS (SELECT 1 FROM public.booking_requests WHERE lower(email)=lower(p_email) AND created_at > now()-interval '5 minutes') THEN RAISE EXCEPTION 'Please wait before sending another request'; END IF; INSERT INTO public.booking_requests(name,email,pathway,availability,message) VALUES(p_name,lower(p_email),p_pathway,p_availability,p_message) RETURNING id INTO result; RETURN result; END; $$;
+REVOKE ALL ON FUNCTION public.submit_booking_request(text,text,text,text,text) FROM PUBLIC, anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.submit_booking_request(text,text,text,text,text) TO service_role;
