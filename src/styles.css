@@ -166,7 +166,11 @@ a:focus-visible { outline: 2px solid var(--ring); outline-offset: 6px; }
 .hero { position: relative; min-height: 650px; overflow: hidden; display: flex; align-items: center; }
 .hero-image { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover; object-position: center; }
 .hero-content { position: relative; z-index: 1; padding-block: 74px 82px; }
-.eyebrow { font-size: 10px; font-weight: 500; letter-spacing: 0.18em; line-height: 1.8; color: var(--primary); }
+/* In @layer components so a Tailwind text-* utility (e.g. the light eyebrow on the
+   dark discovery panel) can still override the default cosmic-purple label colour. */
+@layer components {
+  .eyebrow { font-size: 10px; font-weight: 500; letter-spacing: 0.18em; line-height: 1.8; color: var(--primary); }
+}
 .hero-title { font-family: var(--font-display); font-size: 82px; font-weight: 400; line-height: 1.03; margin-top: 24px; }
 .hero-title em { font-weight: 400; color: var(--violet); }
 .hero-subtitle { max-width: 470px; font-family: var(--font-display); font-size: 26px; line-height: 1.4; margin-top: 25px; }
