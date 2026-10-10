@@ -14,13 +14,51 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      booking_requests: {
+        Row: {
+          availability: string
+          created_at: string
+          email: string
+          id: string
+          message: string
+          name: string
+          pathway: string
+        }
+        Insert: {
+          availability?: string
+          created_at?: string
+          email: string
+          id?: string
+          message?: string
+          name: string
+          pathway: string
+        }
+        Update: {
+          availability?: string
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string
+          name?: string
+          pathway?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      submit_booking_request: {
+        Args: {
+          p_availability: string
+          p_email: string
+          p_message: string
+          p_name: string
+          p_pathway: string
+        }
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never
