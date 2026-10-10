@@ -188,7 +188,7 @@ a:focus-visible { outline: 2px solid var(--ring); outline-offset: 6px; }
 .pathway-card { background: var(--card); padding: 40px; border: 1px solid var(--border); border-radius: 6px; }
 .pathway-card:nth-child(2) { background: var(--secondary); }
 .guide-portrait { margin: 0; }
-.guide-portrait img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 26%; border: 1px solid color-mix(in oklab, var(--gold) 42%, transparent); border-radius: 4px; box-shadow: 0 26px 60px -34px color-mix(in oklab, var(--primary) 70%, transparent); }
+.guide-portrait img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center top; border: 1px solid color-mix(in oklab, var(--gold) 42%, transparent); border-radius: 4px; box-shadow: 0 26px 60px -34px color-mix(in oklab, var(--primary) 70%, transparent); }
 .guide-portrait figcaption { display: flex; align-items: center; gap: 12px; margin-top: 18px; font-family: var(--font-display); font-size: 26px; line-height: 1.15; color: var(--primary); }
 .discovery-section { background: var(--primary); }
 .discovery-section .section-heading em { color: var(--blush); }
