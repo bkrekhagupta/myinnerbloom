@@ -166,7 +166,11 @@ a:focus-visible { outline: 2px solid var(--ring); outline-offset: 6px; }
 .hero { position: relative; min-height: 650px; overflow: hidden; display: flex; align-items: center; }
 .hero-image { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover; object-position: center; }
 .hero-content { position: relative; z-index: 1; padding-block: 74px 82px; }
-.eyebrow { font-size: 10px; font-weight: 500; letter-spacing: 0.18em; line-height: 1.8; color: var(--primary); }
+/* In @layer components so a Tailwind text-* utility (e.g. the light eyebrow on the
+   dark discovery panel) can still override the default cosmic-purple label colour. */
+@layer components {
+  .eyebrow { font-size: 10px; font-weight: 500; letter-spacing: 0.18em; line-height: 1.8; color: var(--primary); }
+}
 .hero-title { font-family: var(--font-display); font-size: 82px; font-weight: 400; line-height: 1.03; margin-top: 24px; }
 .hero-title em { font-weight: 400; color: var(--violet); }
 .hero-subtitle { max-width: 470px; font-family: var(--font-display); font-size: 26px; line-height: 1.4; margin-top: 25px; }
@@ -183,9 +187,9 @@ a:focus-visible { outline: 2px solid var(--ring); outline-offset: 6px; }
 .reflection-item + .reflection-item { border-left: 1px solid var(--border); }
 .pathway-card { background: var(--card); padding: 40px; border: 1px solid var(--border); border-radius: 6px; }
 .pathway-card:nth-child(2) { background: var(--secondary); }
-.guide-art { position: relative; aspect-ratio: 0.95; overflow: hidden; border-radius: 4px; }
-.guide-art img { width: 100%; height: 100%; object-fit: cover; object-position: right; }
-.guide-art-caption { position: absolute; bottom: 35px; left: 30px; display: flex; align-items: flex-start; gap: 14px; color: var(--primary-foreground); font-family: var(--font-display); font-size: 34px; line-height: 1.15; text-shadow: 0 2px 14px var(--primary); }
+.guide-portrait { margin: 0; }
+.guide-portrait img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center top; border: 1px solid color-mix(in oklab, var(--gold) 42%, transparent); border-radius: 4px; box-shadow: 0 26px 60px -34px color-mix(in oklab, var(--primary) 70%, transparent); }
+.guide-portrait figcaption { display: flex; align-items: center; gap: 12px; margin-top: 18px; font-family: var(--font-display); font-size: 26px; line-height: 1.15; color: var(--primary); }
 .discovery-section { background: var(--primary); }
 .discovery-section .section-heading em { color: var(--blush); }
 .site-footer { padding-block: 44px 28px; background: var(--background); }
@@ -218,7 +222,7 @@ a:focus-visible { outline: 2px solid var(--ring); outline-offset: 6px; }
  .reflection-item + .reflection-item { border-left: none; }
  .reflection-item:not(:last-child) { border-bottom: 1px solid var(--border); }
  .pathway-card { padding: 30px; }
- .guide-art { aspect-ratio: 1.2; }
+ .guide-portrait figcaption { font-size: 22px; }
  .booking-modal { width: calc(100% - 24px); }
 }
 @media(prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
