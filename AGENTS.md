@@ -12,4 +12,5 @@
 ## Application architecture
 - Public content routes share BloomShell and focused section components so the landing page and deeper pages stay visually consistent.
 - Discovery-call inquiries use a validated public server function and service-only database RPC with per-email throttling; submissions are never readable by visitors.
+- After a booking is saved, send its owner notification through the linked Google Mail connector; keep booking persistence successful even if notification delivery fails.
 - Brand colours live in semantic CSS tokens, and the generated sanctuary image is a bundled asset, keeping presentation consistent and self-contained.
