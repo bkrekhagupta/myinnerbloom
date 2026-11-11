@@ -1,24 +1,21 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import { AboutSection } from "@/components/bloom-sections";
-import { DISCOVERY_CALL_URL, DiscoveryCallLink } from "@/components/discovery-call-link";
+import { DiscoveryCallLink } from "@/components/discovery-call-link";
 
 describe("Discovery call booking", () => {
-  it("opens the Google Form Rekha supplied, in a new tab", () => {
+  it("opens the on-site booking flow without navigating away", () => {
+    const openBooking = vi.fn();
+    window.addEventListener("inner-bloom:book", openBooking);
     render(<DiscoveryCallLink>Book a Free Discovery Call</DiscoveryCallLink>);
 
-    const link = screen.getByRole("link", { name: /Book a Free Discovery Call/ });
+    const button = screen.getByRole("button", { name: /Book a Free Discovery Call/ });
+    fireEvent.click(button);
 
-    expect(link).toHaveAttribute("href", DISCOVERY_CALL_URL);
-    expect(link).toHaveAttribute("target", "_blank");
-    expect(link).toHaveAttribute("rel", "noopener noreferrer");
-  });
-
-  it("uses the exact form address from the brief", () => {
-    expect(DISCOVERY_CALL_URL).toBe(
-      "https://docs.google.com/forms/d/e/1FAIpQLScvRxyAlD35OqQ1qk41LWvUV5504WJ3RftWtOxm6lJfAitGVw/viewform?usp=header",
-    );
+    expect(openBooking).toHaveBeenCalledOnce();
+    expect(button.closest("a")).toBeNull();
+    window.removeEventListener("inner-bloom:book", openBooking);
   });
 });
 
